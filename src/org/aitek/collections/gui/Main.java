@@ -55,19 +55,19 @@ public class Main extends JFrame implements ActionListener, ChangeListener {
 		tabbedPane.addChangeListener(this);
 		add(tabbedPane);
 
-		StatsPanel listPanel = new StatsPanel("List", new String[] { "ArrayList", "LinkedList", "Stack" });
+		StatsPanel listPanel = new StatsPanel("List", new String[] { "CopyOnWriteArrayList", "LinkedList", "Stack" });
 		SpringLayout slList = new SpringLayout();
 		listPanel.setLayout(slList);
 		tabbedPane.addTab("    List    ", null, listPanel, "List Performances");
 		listSample = new ListSample(listPanel, this);
 
-		StatsPanel setPanel = new StatsPanel("Set", new String[] { "HashSet", "LinkedHashSet", "TreeSet" });
+		StatsPanel setPanel = new StatsPanel("Set", new String[] { "ConcurrentSkipListSet", "LinkedHashSet", "CopyOnWriteArraySet" });
 		SpringLayout slSet = new SpringLayout();
 		setPanel.setLayout(slSet);
 		tabbedPane.addTab("    Set    ", null, setPanel, "Set Performances");
 		setSample = new SetSample(setPanel, this);
 
-		StatsPanel mapPanel = new StatsPanel("Map", new String[] { "Hashtable", "HashMap", "LinkedHashMap", "TreeMap" });
+		StatsPanel mapPanel = new StatsPanel("Map", new String[] { "ConcurrentHashMap", "ConcurrentSkipListMap", "WeakHashMap", "IdentityHashMap" });
 		SpringLayout slMap = new SpringLayout();
 		mapPanel.setLayout(slMap);
 		tabbedPane.addTab("    Map    ", null, mapPanel, "Map Performances");

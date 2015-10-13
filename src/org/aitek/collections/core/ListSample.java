@@ -3,6 +3,7 @@ package org.aitek.collections.core;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.SwingWorker;
 
@@ -12,7 +13,7 @@ import org.aitek.collections.utils.Constants;
 
 public class ListSample extends CollectionSample implements PropertyChangeListener {
 
-	private ArrayList<Integer> arrayList;
+	private CopyOnWriteArrayList<Integer> copyOnWriteArrayList;
 	private LinkedList<Integer> linkedList;
 	private Stack<Integer> stack;
 	private long[] times;
@@ -23,7 +24,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 		super(statsPanel, main);
 		COLLECTION_TYPES = 3;
 		times = new long[COLLECTION_TYPES];
-		arrayList = new ArrayList<Integer>(Constants.COLLECTION_MAX_SIZE * 1000);
+		copyOnWriteArrayList = new CopyOnWriteArrayList<Integer>();
 		linkedList = new LinkedList<Integer>();
 		stack = new Stack<Integer>();
 
@@ -124,7 +125,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 		private long[] populateList() {
 
 			long times[] = new long[COLLECTION_TYPES];
-			arrayList.clear();
+			copyOnWriteArrayList.clear();
 			stack.clear();
 			linkedList.clear();
 
@@ -135,7 +136,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 
 			long startingTime = System.nanoTime();
 			for (int j = 0; j < getListSize(); j++) {
-				arrayList.add(toBeInserted[j]);
+				copyOnWriteArrayList.add(toBeInserted[j]);
 			}
 			times[0] += System.nanoTime() - startingTime;
 
@@ -164,7 +165,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 
 				long startingTime = System.nanoTime();
 				for (int j = 0; j < 50; j++)
-					arrayList.add(arrayList.size() / 2, 0);
+					copyOnWriteArrayList.add(copyOnWriteArrayList.size() / 2, 0);
 				times[0] += System.nanoTime() - startingTime;
 
 				startingTime = System.nanoTime();
@@ -196,11 +197,11 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 
 				long startingTime = System.nanoTime();
 				for (int j = 0; j < 10; j++)
-					arrayList.remove(0);
+					copyOnWriteArrayList.remove(0);
 				for (int j = 0; j < 10; j++)
-					arrayList.remove(arrayList.size() / 2);
+					copyOnWriteArrayList.remove(copyOnWriteArrayList.size() / 2);
 				for (int j = 0; j < 10; j++)
-					arrayList.remove(arrayList.size()-1);
+					copyOnWriteArrayList.remove(copyOnWriteArrayList.size()-1);
 				times[0] += System.nanoTime() - startingTime;
 
 				startingTime = System.nanoTime();
@@ -240,9 +241,9 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 
 				long startingTime = System.nanoTime();
 				for (int j = 0; j < 10; j++) {
-					arrayList.get(0);
-					arrayList.get(arrayList.size() / 2);
-					arrayList.get(arrayList.size() - 1);
+					copyOnWriteArrayList.get(0);
+					copyOnWriteArrayList.get(copyOnWriteArrayList.size() / 2);
+					copyOnWriteArrayList.get(copyOnWriteArrayList.size() - 1);
 				}
 				times[0] += System.nanoTime() - startingTime;
 
@@ -282,7 +283,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 				populateList();
 
 				long startingTime = System.nanoTime();
-				Collections.sort(arrayList);
+				Collections.sort(copyOnWriteArrayList);
 				times[0] += System.nanoTime() - startingTime;
 
 				startingTime = System.nanoTime();
@@ -311,7 +312,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 			for (int z = 0; z <= iterations; z++) {
 
 				long startingTime = System.nanoTime();
-				Iterator<Integer> iterator = arrayList.iterator();
+				Iterator<Integer> iterator = copyOnWriteArrayList.iterator();
 				while (iterator.hasNext()) {
 					iterator.next();
 				}
