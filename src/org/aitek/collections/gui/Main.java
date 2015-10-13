@@ -72,11 +72,13 @@ public class Main extends JFrame implements ActionListener, ChangeListener {
 		mapPanel.setLayout(slMap);
 		tabbedPane.addTab("    Map    ", null, mapPanel, "Map Performances");
 		mapSample = new MapSample(mapPanel, this);
-		
+
+		/**
 		JPanel jpJRE = new JREInfoPanel();
 		SpringLayout slJRE = new SpringLayout();
 		jpJRE.setLayout(slJRE);
 		tabbedPane.addTab("  JRE Info  ", null, jpJRE, "Information about Java Virtual Machine");
+		 **/
 
 		jbPopulate = new JButton("Populate");
 		add(jbPopulate);
