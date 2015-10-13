@@ -2,12 +2,7 @@ package org.aitek.collections.core;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Vector;
+import java.util.*;
 
 import javax.swing.SwingWorker;
 
@@ -19,7 +14,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 
 	private ArrayList<Integer> arrayList;
 	private LinkedList<Integer> linkedList;
-	private Vector<Integer> vector;
+	private Stack<Integer> stack;
 	private long[] times;
 	private Task task;
 
@@ -30,7 +25,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 		times = new long[COLLECTION_TYPES];
 		arrayList = new ArrayList<Integer>(Constants.COLLECTION_MAX_SIZE * 1000);
 		linkedList = new LinkedList<Integer>();
-		vector = new Vector<Integer>(Constants.COLLECTION_MAX_SIZE * 1000);
+		stack = new Stack<Integer>();
 
 	}
 
@@ -130,7 +125,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 
 			long times[] = new long[COLLECTION_TYPES];
 			arrayList.clear();
-			vector.clear();
+			stack.clear();
 			linkedList.clear();
 
 			int[] toBeInserted = new int[listSize];
@@ -152,7 +147,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 
 			startingTime = System.nanoTime();
 			for (int j = 0; j < getListSize(); j++) {
-				vector.add(toBeInserted[j]);
+				stack.add(toBeInserted[j]);
 			}
 			times[2] += System.nanoTime() - startingTime;
 
@@ -179,7 +174,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 
 				startingTime = System.nanoTime();
 				for (int j = 0; j < 50; j++)
-					vector.add(vector.size() / 2, 0);
+					stack.add(stack.size() / 2, 0);
 				times[2] += System.nanoTime() - startingTime;
 
 				setProgress((int) (z * mult));
@@ -219,11 +214,11 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 
 				startingTime = System.nanoTime();
 				for (int j = 0; j < 10; j++)
-					vector.remove(0);
+					stack.remove(0);
 				for (int j = 0; j < 10; j++)
-					vector.remove(vector.size() / 2);
+					stack.remove(stack.size() / 2);
 				for (int j = 0; j < 10; j++)
-					vector.remove(vector.size()-1);
+					stack.remove(stack.size()-1);
 				times[2] += System.nanoTime() - startingTime;
 
 				setProgress((int) (z * mult));
@@ -261,9 +256,9 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 
 				startingTime = System.nanoTime();
 				for (int j = 0; j < 10; j++) {
-					vector.get(0);
-					vector.get(vector.size() / 2);
-					vector.get(vector.size() - 1);
+					stack.get(0);
+					stack.get(stack.size() / 2);
+					stack.get(stack.size() - 1);
 				}
 				times[2] += System.nanoTime() - startingTime;
 
@@ -295,7 +290,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 				times[1] += System.nanoTime() - startingTime;
 
 				startingTime = System.nanoTime();
-				Collections.sort(vector);
+				Collections.sort(stack);
 				times[2] += System.nanoTime() - startingTime;
 
 				setProgress((int) (z * mult));
@@ -330,7 +325,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 				times[1] += System.nanoTime() - startingTime;
 
 				startingTime = System.nanoTime();
-				iterator = vector.iterator();
+				iterator = stack.iterator();
 				while (iterator.hasNext()) {
 					iterator.next();
 				}
@@ -352,7 +347,7 @@ public class ListSample extends CollectionSample implements PropertyChangeListen
 	@Override
 	public boolean isPopulated() {
 
-		return vector.size() > 0;
+		return stack.size() > 0;
 	}
 
 }

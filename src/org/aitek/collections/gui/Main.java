@@ -55,7 +55,7 @@ public class Main extends JFrame implements ActionListener, ChangeListener {
 		tabbedPane.addChangeListener(this);
 		add(tabbedPane);
 
-		StatsPanel listPanel = new StatsPanel("List", new String[] { "ArrayList", "LinkedList", "Vector" });
+		StatsPanel listPanel = new StatsPanel("List", new String[] { "ArrayList", "LinkedList", "Stack" });
 		SpringLayout slList = new SpringLayout();
 		listPanel.setLayout(slList);
 		tabbedPane.addTab("    List    ", null, listPanel, "List Performances");
